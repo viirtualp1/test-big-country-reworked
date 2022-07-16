@@ -112,7 +112,7 @@ export default {
       const page = qs.parse(url.slice(url.lastIndexOf('?') + 1)).page;
 
       if (page === undefined) {
-        return 0;
+        return 1;
       } else {
         return page;
       }
