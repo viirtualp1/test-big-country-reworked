@@ -27,7 +27,6 @@
 <script>
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import qs from 'qs';
 import dayjs from 'dayjs';
 import UserComment from '../components/UserComment.vue';
 import CreateComment from '../components/CreateComment.vue';
@@ -97,17 +96,6 @@ export default {
         });
       }
     },
-
-    getQueryVariable() {
-      const url = window.location.search.slice(1);
-      const page = qs.parse(url.slice(url.lastIndexOf('?') + 1)).page;
-
-      if (page === undefined) {
-        return 1;
-      } else {
-        return page;
-      }
-    },
   },
 
   computed: {
@@ -130,7 +118,7 @@ export default {
     axios.get('https://bigcountry-task.vercel.app/comments.json').then((comments) => {
       this.comments = comments.data;
 
-      this.pageNumber = this.getQueryVariable('page');
+      this.pageNumber = this.$route.query.page;
     });
   },
 };
