@@ -11,7 +11,11 @@
           @input="$emit('input', $event.target.value)"
         />
 
-        <button type="button" class="btn btn-success" v-on:click="$emit('eventClick')">
+        <button
+          type="button"
+          class="btn btn-success"
+          v-on:click="$emit('eventClick')"
+        >
           Добавить
         </button>
       </form>
@@ -21,18 +25,7 @@
 
 <script>
 export default {
-  name: 'CreateComment',
-  props: {
-    commentText: {
-      type: String,
-      required: true,
-    }
-  },
-  methods: {
-    handleInput() {
-      this.$emit('input', this.commentText);
-    },
-  },
+  name: "CreateComment",
 };
 </script>
 

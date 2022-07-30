@@ -1,9 +1,17 @@
 <template>
   <div class="home">
-    <CreateComment v-model="commentText" :comment-text="commentText" v-on:eventClick="createComment" />
+    <CreateComment
+      v-model="commentText"
+      :comment-text="commentText"
+      v-on:eventClick="createComment"
+    />
 
     <h3>Страница: {{ pageNumber }}</h3>
-    <UserComment v-for="comment in paginatedData" :key="comment.id" :comment="comment" />
+    <UserComment
+      v-for="comment in paginatedData"
+      :key="comment.id"
+      :comment="comment"
+    />
 
     <div class="btns-navigation mb-3">
       <button
@@ -25,14 +33,14 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2';
-import axios from 'axios';
-import dayjs from 'dayjs';
-import UserComment from '../components/UserComment.vue';
-import CreateComment from '../components/CreateComment.vue';
+import Swal from "sweetalert2";
+import axios from "axios";
+import dayjs from "dayjs";
+import UserComment from "../components/UserComment.vue";
+import CreateComment from "../components/CreateComment.vue";
 
 export default {
-  name: 'HomeView',
+  name: "HomeView",
   components: {
     UserComment,
     CreateComment,
@@ -43,7 +51,7 @@ export default {
       pageNumber: 1,
       size: 20,
       comments: [],
-      commentText: '',
+      commentText: "",
     };
   },
 
@@ -71,8 +79,8 @@ export default {
     createComment() {
       const date = new Date();
 
-      const countWords = this.commentText.split(' ').length;
-      const lengthString = this.commentText.replace(/\s/g, '').length;
+      const countWords = this.commentText.split(" ").length;
+      const lengthString = this.commentText.replace(/\s/g, "").length;
 
       if (countWords >= 3 && lengthString < 1000) {
         this.comments.unshift({
@@ -80,19 +88,19 @@ export default {
           created_at: dayjs(date),
           author: {
             id: 16,
-            name: 'John Doe',
-            avatar: 'http://placeimg.com/640/480/business',
-            company: 'BigCountry',
+            name: "John Doe",
+            avatar: "http://placeimg.com/640/480/business",
+            company: "BigCountry",
           },
         });
       } else {
         Swal.fire({
-          title: 'Ошибка при создании комментария!',
-          icon: 'error',
+          title: "Ошибка при создании комментария!",
+          icon: "error",
           text:
             countWords < 3
-              ? 'В тексте комментария должно быть больше 3-ех слов'
-              : 'В тексте комментарии должно быть меньше 1000 символов',
+              ? "В тексте комментария должно быть больше 3-ех слов"
+              : "В тексте комментарии должно быть меньше 1000 символов",
         });
       }
     },
@@ -115,11 +123,13 @@ export default {
   },
 
   created: function () {
-    axios.get('https://bigcountry-task.vercel.app/comments.json').then((comments) => {
-      this.comments = comments.data;
+    axios
+      .get("https://bigcountry-task.vercel.app/comments.json")
+      .then((comments) => {
+        this.comments = comments.data;
 
-      this.pageNumber = this.$route.query.page;
-    });
+        this.pageNumber = this.$route.query.page;
+      });
   },
 };
 </script>
