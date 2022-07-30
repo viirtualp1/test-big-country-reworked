@@ -22,6 +22,12 @@
 <script>
 export default {
   name: 'CreateComment',
+  props: {
+    commentText: {
+      type: String,
+      required: true,
+    }
+  },
   methods: {
     handleInput() {
       this.$emit('input', this.commentText);

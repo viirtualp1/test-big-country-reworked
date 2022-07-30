@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <CreateComment v-model="commentText" v-on:eventClick="createComment"></CreateComment>
+    <CreateComment v-model="commentText" :comment-text="commentText" v-on:eventClick="createComment" />
 
     <h3>Страница: {{ pageNumber }}</h3>
     <UserComment v-for="comment in paginatedData" :key="comment.id" :comment="comment" />
@@ -8,7 +8,7 @@
     <div class="btns-navigation mb-3">
       <button
         class="btn btn-outline-primary btn-previous"
-        :disabled="pageNumber == 1"
+        :disabled="pageNumber === 1"
         @click="previousPage"
       >
         Previous
@@ -53,7 +53,7 @@ export default {
 
       const query = Object.assign({}, this.$route.query);
       query.page = this.pageNumber;
-      query.limit = this.pageCount - 1;
+      query.limit = `${this.pageCount--}`;
 
       await this.$router.push({ query });
     },
@@ -63,7 +63,7 @@ export default {
 
       const query = Object.assign({}, this.$route.query);
       query.page = this.pageNumber;
-      query.limit = this.pageCount - 1;
+      query.limit = `${this.pageCount--}`;
 
       await this.$router.push({ query });
     },
